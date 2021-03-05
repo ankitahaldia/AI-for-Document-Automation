@@ -1,13 +1,14 @@
-import pandas as pd
-import sqlite3   
-conn = sqlite3.connect("mydatabase.db")# if it is first time it creates DB
-df=pd.DataFrame()
-df["name"]=["orhan"]
-df["age"]=[10]
-df["surname"]=["NURKAN"]
-df.to_sql(name='students', con=conn,if_exists='replace', index=False)
-null=0
-true=True
+# import pandas as pd
+# import sqlite3   
+# conn = sqlite3.connect("mydatabase.db")# if it is first time it creates DB
+# df=pd.DataFrame()
+# df["name"]=["orhan"]
+# df["age"]=[10]
+# df["surname"]=["NURKAN"]
+# df.to_sql(name='students', con=conn,if_exists='replace', index=False)
+null = None
+true = True
+false =False
 req={"lang":"fr","title":"","superTheme":"","theme":"","textSearchTerms":"",
 "signatureDate":{"start":"2018-01-01T00:00:00.000Z", "end":"2021-12-31T00:00:00.000Z1",
 "depositNumber":{"start":49933,"end":null},"noticeDeposaMBDate":{"start":null,"end":null},
@@ -68,3 +69,40 @@ res2 = {'jcId': 3310000,
 'scopeNl': None, 
 'noScopeFr': None, 
 'noScopeNl': None}
+new_line={"jcId":"","jcFr":"","jcNl":"","titleFr":"","titleNl":"","themesFr":"","themesNl":"",
+"signatureDate":"","validityDate":"","depositDate":"","recordDate":"","depositRegistrationDate":"",
+"depositNumber":"","enforced":"","royalDecreeDate":"","noticeDepositMBDate":"",
+"publicationRoyalDecreeDate":"","correctedDate":"","documentLink":"","documentSize":"","scopeFr":"",
+"scopeNl":"","noScopeFr":"","noScopeNl":""}
+column_CLA=["jcId","titleFr","titleNl","signatureDate","validityDate","depositDate","recordDate","depositRegistrationDate","id","enforced","royalDecreeDate","noticeDepositMBDate","publicationRoyalDecreeDate","correctedDate","documentLink","documentSize"]
+# new_CLA = new_line.copy()
+# del new_CLA["jcFr"]
+# del new_CLA["jcNl"]
+# del new_CLA["titleFr"]
+# del new_CLA["titleNl"]
+# del new_CLA["themesFr"]
+# del new_CLA["themesNl"]
+# new_CLA["id"] =new_CLA["depositNumber"]
+# del new_CLA["depositNumber"]
+# del new_CLA["scopeFr"]
+# del new_CLA["scopeNl"]
+# del new_CLA["noScopeFr"]
+# del new_CLA["noScopeNl"]
+a="['Armateurs']"
+# print(a)
+# print(eval(a)) 
+# # print(list(eval(a))) 
+# a=["... ayant une convention de partenariat avec Actiris telle que prÃ©vue par les arrÃªtÃ©s de l'ExÃ©cutif de la RÃ©gion de Bruxelles-Capitale du 27/06/1991 autorisant Actiris Ã\xa0 conclure des conventions de partenariat en vue d'accroÃ®tre les chances de certains demandeurs d'emploi de trouver ou de retrouver du travail dans le cadre de dispositifs coordonnÃ©s d'insertion socioprofessionnelle.", 
+# "Personnel occupÃ© au sens de la Loi sur les contrats de travail du 3/07/1978 affectÃ©s Ã\xa0 des projets d'insertion socioprofessionnelle tels que dÃ©finis par le DÃ©cret de la COCOF du 27/04/1995.", 
+# 'Dans les Missions locales, outre le personnel Ã©noncÃ© ci-dessus : les travailleurs affectÃ©s aux missions de l\'ordonnance du 27/11/2008 relative au soutien des missions locales pour l\'emploi et des "lokale werkwinkels", les encadrants des programmes de transition professionnelle, le personnel des ateliers de recherche active d\'emploi.']
+# b=["Travailleurs affectÃ©s Ã\xa0 des missions relevant d'un autre agrÃ©ment et bÃ©nÃ©ficiant des avantages relevant d'un accord non-marchand d'une autre entitÃ© fÃ©dÃ©rÃ©e.", "Les travailleurs affectÃ©s Ã\xa0 des missions d'Ã©conomie sociale d'insertion auprÃ¨s d'employeurs agrÃ©Ã©s en vertu de l'ordonnance du 18/03/2004 relative Ã\xa0 l'agrÃ©ment et au financement des initiatives locales de dÃ©veloppement de l'emploi et des entreprises d'insertion ou de l'ordonnance du 23/07/2018 relative Ã\xa0 l'agrÃ©ment et au soutien des entreprises sociales."]
+# if a[0]==b[0]:
+#     print("the same")
+for i in range(1000):
+    if i%10 ==0:
+        print(" == ",i)
+
+# ["Employeurs tels que dÃ©finis et agrÃ©Ã©s par la COCOF via le dÃ©cret du 27/04/1995 relatif Ã\xa0 l'agrÃ©ment de certains organismes d'insertion sociopro. et au subventionnement de leurs activitÃ©s de formation pro. en vue d'accroÃ®tre les chances de demandeurs d'emploi inoccupÃ©s et peu qualifiÃ©s de trouver ou de retrouver du travail dans le cadre de dispositifs coordonnÃ©s d'insertion sociopro. et ...", 
+# "... ayant une convention de partenariat avec Actiris telle que prÃ©vue par les arrÃªtÃ©s de l'ExÃ©cutif de la RÃ©gion de Bruxelles-Capitale du 27/06/1991 autorisant Actiris Ã\xa0 conclure des conventions de partenariat en vue d'accroÃ®tre les chances de certains demandeurs d'emploi de trouver ou de retrouver du travail dans le cadre de dispositifs coordonnÃ©s d'insertion socioprofessionnelle.", 
+# "Personnel occupÃ© au sens de la Loi sur les contrats de travail du 3/07/1978 affectÃ©s Ã\xa0 des projets d'insertion socioprofessionnelle tels que dÃ©finis par le DÃ©cret de la COCOF du 27/04/1995.", 
+# 'Dans les Missions locales, outre le personnel Ã©noncÃ© ci-dessus : les travailleurs affectÃ©s aux missions de l\'ordonnance du 27/11/2008 relative au soutien des missions locales pour l\'emploi et des "lokale werkwinkels", les encadrants des programmes de transition professionnelle, le personnel des ateliers de recherche active d\'emploi.']
