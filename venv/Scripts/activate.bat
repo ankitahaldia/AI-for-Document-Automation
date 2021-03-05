@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=C:\Users\opaps\source\BeCode\KPMG-JC\venv"
+set "VIRTUAL_ENV=C:\Users\opaps\source\BeCode\KPMG-JC\New folder\AI-for-Document-Automation\venv"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

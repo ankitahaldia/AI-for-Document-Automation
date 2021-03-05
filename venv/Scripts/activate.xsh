@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"C:\Users\opaps\source\BeCode\KPMG-JC\venv"
+$VIRTUAL_ENV = r"C:\Users\opaps\source\BeCode\KPMG-JC\New folder\AI-for-Document-Automation\venv"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]
