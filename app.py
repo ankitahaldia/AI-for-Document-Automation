@@ -10,10 +10,22 @@ import pandas as pd
 from bokeh.models.widgets import Div
 import webbrowser
 
+from packages.repository import get_all_themes
+from packages.serv import services as serv 
+
 st.title("""
 CLA Checker
 	""")
+
+#serv.update_database()
+
+list_themes = [theme.name_fr for theme in get_all_themes()]
+selected_cla = st.selectbox('Select', list_themes)
+
 today = datetime.today().date()
+
+
+
 
 def retrieve_cla(dataset,title):
 
@@ -25,7 +37,6 @@ def retrieve_cla(dataset,title):
     dataset_match= dataset[dataset['title'] == title]
     update = dataset_match[dataset_match['dates'] == today]
 
-
     if len(update) >0:
         st.write('Updates were made at')
         st.write(today.day,today.strftime("%B"))
@@ -33,16 +44,10 @@ def retrieve_cla(dataset,title):
         st.write(str(update.text.values))
         link= update['link'].values
 
-
-
         if st.button('GET PDF'):
             st.markdown(link, unsafe_allow_html=True)
             browser = webbrowser.get('safari')
             browser.open_new_tab(link)
-
-
-
-
 
         # if st.button('Open PDF'):
         #     webbrowser.open_new_tab(link)
@@ -57,7 +62,6 @@ def retrieve_cla(dataset,title):
 
 
 
-selected_cla = st.selectbox('Select', ['Select One','UK Immigration','Politics', 'Healthcare', 'Bears'])
 if selected_cla is not None:
 
     st.write("")
@@ -66,10 +70,6 @@ if selected_cla is not None:
     st.write("-------------------------------------")
     label=retrieve_cla('data2.csv',selected_cla)
     st.write(label)
-
-
-
-
 
 def extract(img):
     slide=st.sidebar.slider("Select Page Segmentation Mode",1,14)

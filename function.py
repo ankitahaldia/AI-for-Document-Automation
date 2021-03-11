@@ -3,7 +3,8 @@ import datetime as dt
 from datetime import datetime
 
 import pandas as pd
-df=pd.read_csv('data2.csv',index_col=0)
+
+df=pd.read_csv(r'data2.csv',index_col=0)
 df['dates']= pd.to_datetime(df['dates'])
 df.to_csv('data2.csv')
 
