@@ -16,6 +16,7 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
    
 
+#GET
 def get_themes(themes_series, session):
     '''
     gets themes based on a series of french theme names.
@@ -30,13 +31,41 @@ def get_themes(themes_series, session):
 def get_all_themes():
 
     session = Session()
-
     themes = session.query(dbo.Theme).all()
-
     session.close()
 
     return themes
 
+def get_cla_by_theme(theme):
+    session = Session()
+    try :
+        db_theme = session.query(dbo.Theme).filter(dbo.Theme.name_fr == theme).first()
+        return db_theme.CLAs
+    
+    except NoResultFound:
+        return []
+
+def get_cla_full_search(theme, jc_id, is_errated, start_sig_date, end_sig_date):
+    clas = get_cla_by_theme(theme)
+    clas = [cla for cla in clas if 
+        cla.joint_commission_id == jc_id 
+        and (not is_errated or cla.corrected_date is not None )
+        and cla.signature_date > start_sig_date
+        and cla.signature_date < end_sig_date]
+
+    return clas
+
+def get_all_jc():
+
+    session = Session()
+    jcs = session.query(dbo.JointCommission).all()
+    session.close()
+
+    return jcs
+
+
+
+#INSERT 
 def insert_scope(df):
     db_scopes = []
     session = Session()
@@ -111,6 +140,7 @@ def insert_CLA(df):
         session.add(cla)
     session.commit()
 
+#MISC
 def check_for_new_cla(df):
     session = Session()
     new_clas = []

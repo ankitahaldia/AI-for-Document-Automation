@@ -1,3 +1,5 @@
+RUN apt-get update
+RUN apt-get install ffmpeg libxext6  -y
 mkdir -p ~/.streamlit/
 echo "[general]
 email = \"parry.dilara@gmail.com\"
