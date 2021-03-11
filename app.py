@@ -1,6 +1,7 @@
 from function import retrieve_cla
 import streamlit as st
 from datetime import datetime
+import pytesseract
 import numpy as np
 import cv2
 import pytesseract as pt
@@ -12,6 +13,8 @@ import webbrowser
 
 from packages.repository import get_all_themes
 from packages.serv import services as serv 
+
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 
 st.title("""
 CLA Checker
