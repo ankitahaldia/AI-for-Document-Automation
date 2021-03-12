@@ -12,7 +12,7 @@
     <img src="KPMG.jpg" alt="Logo" width="240" height="120">
   </a>
 
-  <h1 align="center">KPMG project</h1>
+  <h1 align="center">Sectoral Document</h1>
   <h3 align="center">ATTENTION : CETTE PAGE A ÉTÉ CRÉÉE DE MANIÈRE ROBOTIQUE AVEC UN CODE AUTOMATIQUE VEUILLEZ FAIRE LES CHANGEMENTS NÉCESSAIRES ET CONFIRMER L'EXACTITUDE DES INFORMATIONS</h3>
 
 </p>
