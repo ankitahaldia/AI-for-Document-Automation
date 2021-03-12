@@ -27,14 +27,6 @@ Commission paritaire : 200.00
 Dernier changement : 22/10/2020
 
 
-* [THÈMES CONNEXES DANS TOUTES LES CLA(from 16 pdfs) :](#themes-connexes-dans-toutes-les-cla)
-* [CHAMP D'APPLICATION DE LA CLA :](#CHAMP D'APPLICATION DE LA CLA :)
-* [CLA - DE QUOI š'AGIT-IL :](#CLA - DE QUOI š'AGIT-IL :)
-* [SYSTÈME D'AUTOMATISATION](#SYSTÈME D'AUTOMATISATION)
-* [NOTRE SYSTÈME DE DATABASE](#NOTRE SYSTÈME DE DATABASE)
-* [SYSTÈME *** QnA NLP MODEL](#SYSTÈME *** QnA NLP MODEL)
-
-
 
 
 ## THÈMES CONNEXES DANS TOUTES LES CLA
@@ -94,6 +86,7 @@ Dernier changement : 22/10/2020
 
 
 
+
 ## CHAMP D'APPLICATION DE LA CLA :
 
 PORTÉE : auto-écoles reconnues par les ministres régionaux compétents
@@ -104,6 +97,7 @@ AUCUNE PORTÉE : écoles de conduite accréditées qui sont des organisations qu
 
 AUCUNE PORTÉE : les employés qui utilisent leurs propres moyens de transport et dont la rémunération brute annuelle dépasse 27 750 EUR
 	CLA - 152.852, 157.721
+
 
 
 
@@ -141,6 +135,9 @@ AUCUNE PORTÉE : les employés qui utilisent leurs propres moyens de transport e
 160.974 - ERRATUM + Convention collective du travail du 9 juillet 2020 modifiant la convention collective du travail du 1er juillet 2019 concernant la formation
 
 161.876 - Convention collective du travail du 8 octobre 2020 modifiant la convention collective du travail du 1 juillet 2019 concernant la formation
+
+
+
 
 
 ## SYSTÈME D'AUTOMATISATION
