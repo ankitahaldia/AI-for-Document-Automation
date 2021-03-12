@@ -152,10 +152,40 @@ def check_for_new_cla(df):
             cla = session.query(dbo.CLA).filter(dbo.CLA.id == row['depositNumber']).one()
             
             if row['correctedDate'] is not None and cla.corrected_date != to_date(row['correctedDate']):
-                errated_clas.append(row)
+                errated_clas.append(dbo.CLA(
+                id =row['depositNumber'],
+                anenexe_page = 0,    
+                title_fr = row['titleFr'],
+                title_nl = row['titleNl'],
+                signature_date = to_date(row['signatureDate']),
+                validity_date = to_date(row['validityDate']),
+                deposit_date = to_date(row['depositDate']),
+                record_date = to_date(row['recordDate']),
+                deposit_registration_date = to_date(row['depositRegistrationDate']),
+                royal_decree_date = to_date(row['royalDecreeDate']),
+                notice_deposit_MB_date = to_date(row['noticeDepositMBDate']),
+                publication_royal_decree_date = to_date(row['publicationRoyalDecreeDate']),
+                corrected_date = to_date(row['correctedDate']),
+                document_link = row['documentLink'],
+                joint_commission_id = row['jcId']))
         
         except NoResultFound :
-            new_clas.append(row)
+            new_clas.append(dbo.CLA(
+            id =row['depositNumber'],
+            anenexe_page = 0,    
+            title_fr = row['titleFr'],
+            title_nl = row['titleNl'],
+            signature_date = to_date(row['signatureDate']),
+            validity_date = to_date(row['validityDate']),
+            deposit_date = to_date(row['depositDate']),
+            record_date = to_date(row['recordDate']),
+            deposit_registration_date = to_date(row['depositRegistrationDate']),
+            royal_decree_date = to_date(row['royalDecreeDate']),
+            notice_deposit_MB_date = to_date(row['noticeDepositMBDate']),
+            publication_royal_decree_date = to_date(row['publicationRoyalDecreeDate']),
+            corrected_date = to_date(row['correctedDate']),
+            document_link = row['documentLink'],
+            joint_commission_id = row['jcId']))
     session.close()    
     return new_clas, errated_clas
 

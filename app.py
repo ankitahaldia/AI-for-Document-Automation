@@ -1,4 +1,4 @@
-from function import retrieve_cla
+from sqlalchemy.sql.selectable import Join
 import streamlit as st
 from datetime import datetime
 import numpy as np
@@ -14,19 +14,20 @@ import base64
 import os 
 import requests
 
-from packages.repository import get_all_themes, get_all_jc, get_cla_full_search
-from packages.serv import services as serv 
+from packages.repository import get_all_themes, get_all_jc, get_cla_full_search, check_for_new_cla
+from packages.serv.services import get_cla_json
 
+
+
+
+st.set_page_config(layout="wide")
 
 #serv.update_database()
 download_link ='https://public-search.emploi.belgique.be/website-download-service/joint-work-convention/'
 
 cwd = os.getcwd()
-# TITLE
-st.title("""
-CLA Checker
-    """)
 
+container = st.beta_container()
 
 def download_pdf(url):
     r = requests.get(download_link + url, allow_redirects=True)
@@ -39,17 +40,46 @@ def display_pdf(pdf_file):
     
     with open(f'{pdf_file}',"rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="1050" height="1500" type="application/pdf">'
+    container.markdown(pdf_display, unsafe_allow_html=True)
+
+
+def display_mock(highlight):
+
+    container.title('régime de chômage avec complément d\'entreprise à 59 ans')
+    container.header(f'Deposit number: 152853')
+    container.subheader(f'200: COMMISSION PARITAIRE POUR LES EMPLOYES DE L\'INDUSTRIE ALIMENTAIRE ')
+
+    if highlight:
+        container.subheader('Chapter 1 : Champ d\'application')
+    
+    
+    st.sidebar.markdown(f'[Download link]({download_link}10203/10203-2020-001652.pdf)')
+    
+    st.sidebar.subheader('Chapters')
+    for i in range(1,7):
+        st.sidebar.button(f'Chapter {i}')
+    
+
+    if highlight:
+        display_pdf('200_chapitre_surligne.pdf')
+    else:
+        display_pdf('200-200-2019-010018.pdf')
+        
+    
+
+
 
 def display_cla(cla):
     
 
     download_pdf(cla.document_link)
 
-    st.title(cla.title_fr)
-    st.header(f'Deposit number: {cla.id}')
-    st.subheader(f'{cla.joint_commission_id}: {cla.joint_commission.name_fr}')
+    container.title(cla.title_fr)
+    container.header(f'Deposit number: {cla.id}')
+    if cla.joint_commission:
+        container.subheader(f'{cla.joint_commission_id}: {cla.joint_commission.name_fr}')
+    container.subheader(' ')
     
     display_pdf(cla.document_link.replace('/', '-'))
        
@@ -63,11 +93,12 @@ def display_cla(cla):
     st.sidebar.write(f'Record date: {cla.record_date}')
     st.sidebar.write(f'Deposit registration date: {cla.deposit_registration_date}')
     st.sidebar.write(f'Royal decree date: {cla.royal_decree_date}')
-    st.sidebar. write(f'Publication royal decree date: {cla.publication_royal_decree_date}')  
+    st.sidebar. write(f'Publ. royal decree date: {cla.publication_royal_decree_date}')  
 
-    st.sidebar.subheader('Themes')
-    for theme in cla.themes:
-        st.sidebar.button(theme.name_fr)        
+    if cla.themes:
+        st.sidebar.subheader('Themes')
+        for theme in cla.themes:
+            st.sidebar.button(theme.name_fr)        
         
     st.sidebar.subheader('Scopes')
     for scope in cla.scopes:
@@ -77,17 +108,21 @@ def display_cla(cla):
     for no_scope in cla.no_scopes:
         st.sidebar.button(no_scope.name_fr)
 
+
+st.image('banner.png')
+
+selected_jc = st.selectbox('Select a joint commission', get_all_jc() ,format_func=lambda x : f'{x.id} {x.name_fr}')
+
 # SEARCH COLUMNS
 col1, col2 = st.beta_columns((5,2))
 
 # COLUMN 1
 with col1:
-    # THEME SELECTOR    
+    # THEME SELECTOR  
     selected_theme = st.selectbox('Select a theme', get_all_themes(), format_func=lambda x :x.name_fr)
 
-    # JOINT COMMISSION SELECTOR
-    selected_jc = st.selectbox('Select a joint commission', get_all_jc() ,format_func=lambda x : f'{x.id} {x.name_fr}')
-    st.write(selected_jc.id)
+    has_erratum = col1.checkbox('Look for an erratum', value=False)
+
 
 # COLUMN 2
 with col2:
@@ -101,8 +136,6 @@ with col2:
         "Select an ending signature date",
         datetime.date(2032, 1, 1))
 
-    # ERRATUM CHECKBOX
-    has_erratum = st.checkbox('Look for an erratum', value=False)
 
 # SEARCH BUTTON
 click_search = st.button('SEARCH')
@@ -110,22 +143,30 @@ click_search = st.button('SEARCH')
 # NEW CLAS BUTTON
 click_new_cla = st.button('SEARCH FOR NEW CLAS')
 
+click_mock = st.button('BETA')
+click_mock2 = st.button('BETA HIGHLIGHT CHAPTER 1')
+
 if click_search:
     clas = get_cla_full_search(selected_theme.name_fr, selected_jc.id, has_erratum, start_signature_date, end_signature_date )
-    
-    if clas:
-        selected_cla = st.selectbox('Select a CLA',clas, format_func=lambda x : f'{x.validity_date} : {x.title_fr}')
-        display_cla(selected_cla)
 
-             
         
+    if clas:
+        selected_cla = container.selectbox('Select a CLA',clas, format_func=lambda x : f'{x.validity_date} : {x.title_fr}')
+        display_cla(selected_cla)
 
     
 if click_new_cla:
-    #display_cla()
-    pass
+    cla1, cla2 = check_for_new_cla(get_cla_json())
 
+    if cla2:
+        selected_cla = container.selectbox('Select a CLA',cla2, format_func=lambda x : f'{x.validity_date} : {x.title_fr}')
+        display_cla(selected_cla)
+    
+if click_mock:
+    display_mock(False)
 
+if click_mock2:
+    display_mock(True)
     
 
 

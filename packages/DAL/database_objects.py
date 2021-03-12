@@ -39,12 +39,62 @@ class CLA(Base):
     document_link = Column(String)
     joint_commission_id = Column(Integer, ForeignKey('Joint_commissions.id'))
     joint_commission = relationship('JointCommission', back_populates='CLAs')
+    
 
     # these are other relationships, they are not relevant for our demonstration
     errata = relationship('Erratum', back_populates='CLA')
     themes = relationship('Theme', secondary=theme_CLA, lazy='subquery', backref=backref('Themes', lazy=True))
     scopes = relationship('Scope', back_populates='CLA')
     no_scopes = relationship('NoScope', back_populates='CLA')
+
+
+    def __str__(self):
+        link = r'https://public-search.emploi.belgique.be/website-download-service/joint-work-convention/'
+        
+        if self.themes:
+            themes = '\n'.join([th.name_fr for th in self.themes])
+        else : 
+            themes = []
+        if self.scopes:
+            scopes = ['\n'.join(i.name_fr) for i in self.scopes]
+        else :
+            scopes = []
+        if self.no_scopes:
+            no_scopes = ['\n'.join(i.name_fr) for i in self.no_scopes]
+        else :
+            no_scopes = []
+        return (f'''
+        SECTOR:
+        \n
+        {self.joint_commission.name_fr}
+        \n
+        {self.title_fr}\n
+        \n
+        has been errated: {self.corrected_date is not None}
+        \n
+        THEMES: 
+        \n
+        {themes}
+        \n
+        SCOPES: 
+        \n
+        {scopes}
+        \n
+        NO SCOPES: 
+        \n
+        {no_scopes}
+        \n
+        signature date: {self.signature_date} 
+        \n
+        validity date: {self.validity_date}
+        \n
+        deposit date: {self.deposit_date}
+        \n
+        record date: {self.record_date}
+        \n
+        download link : {link}{self.document_link}
+        ''')
+
 
 class Erratum(Base):
     __tablename__ = 'Errata'
