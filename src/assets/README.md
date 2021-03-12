@@ -6,10 +6,10 @@
 <br />
 <p align="center">
   <a href="https://github.com/orhannurkan/AI-for-Document-Automation">
-    <img src="partena.jpg" alt="Logo" width="240" height="180">
+    <img src="partena.jpg" alt="Logo" width="240" height="120">
   </a>
   <a href="https://github.com/orhannurkan/AI-for-Document-Automation">
-    <img src="KPMG.jpg" alt="Logo" width="240" height="180">
+    <img src="KPMG.jpg" alt="Logo" width="240" height="120">
   </a>
 
   <h1 align="center">KPMG project</h1>
